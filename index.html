@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.png" type="image/x-icon">
+    <title>Cuenta regresiva</title>
+    <style>
+        body {
+            font-family: Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f4f4f4;
+            cursor: url('cursor.png'), auto;
+        }
+
+        /* Barra superior */
+        .top-bar {
+            background-color: #66BEE3;
+            height: 107px;
+            display: flex;
+            align-items: center;
+            padding: 0 90px;
+        }
+        .top-bar img {
+            width: 492px;
+            height: 53px;
+        }
+
+        /* Slider */
+        .slider {
+            margin: 20px 90px 0; /* Eliminamos el margen inferior */
+            position: relative;
+            overflow: hidden;
+            width: calc(100% - 180px);
+            height: 716px;
+        }
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        .slides img {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Flechas del slider */
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 40%;
+            width: auto;
+            margin-top: -22px;
+            padding: 16px;
+            color: white;
+            font-weight: bold;
+            font-size: 24px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+        }
+
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        /* Imagen PNG */
+        .image-container {
+            margin: 0px 0; /* Reducimos el margen superior */
+            text-align: center;
+        }
+
+        /* Cuenta regresiva */
+        #countdown {
+            font-family: 'Helvetica', sans-serif;
+            font-weight: bold;
+            font-stretch: condensed;
+            color: black;
+            width: 100%;
+            margin: 0 auto;
+            font-size: 80px; /* Ajustamos el tamaño de fuente */
+            text-align: center;
+        }
+
+        /* Margen */
+        .margin {
+            height: 104px;
+        }
+
+        /* Cuadrícula de fotos */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 30px;
+            margin: 0 90px;
+        }
+        .photo-grid img {
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 18px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .photo-grid img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #66BEE3;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+            margin-top: 40px; /* Margen superior */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Barra superior -->
+    <div class="top-bar">
+        <img src="logo.png" alt="Logo">
+    </div>
+
+    <!-- Slider con flechas -->
+    <div class="slider">
+        <div class="slides">
+            <img src="banner1.png" alt="Banner 1">
+            <img src="banner2.png" alt="Banner 2">
+        </div>
+        <a class="prev" onclick="moveSlide(-1)">&#10094;</a>
+        <a class="next" onclick="moveSlide(1)">&#10095;</a>
+    </div>
+
+    <!-- Imagen PNG centrada -->
+    <div class="image-container">
+        <img src="txt1.png" alt="Imagen centrada">
+    </div>
+
+    <!-- Cuenta regresiva -->
+    <div id="countdown"></div>
+
+    <!-- Margen de 104px -->
+    <div class="margin"></div>
+
+    <!-- Cuadrícula de fotos (4 columnas) -->
+    <div class="photo-grid">
+        <img src="foto1.png" alt="Foto 1">
+        <img src="foto2.png" alt="Foto 2">
+        <img src="foto3.png" alt="Foto 3">
+        <img src="foto4.png" alt="Foto 4">
+        <img src="foto5.png" alt="Foto 5">
+        <img src="foto6.png" alt="Foto 6">
+        <img src="foto7.png" alt="Foto 7">
+        <img src="foto8.png" alt="Foto 8">
+        <img src="foto9.png" alt="Foto 9">
+        <img src="foto10.png" alt="Foto 10">
+        <img src="foto11.png" alt="Foto 11">
+        <img src="foto12.png" alt="Foto 12">
+        <img src="foto13.png" alt="Foto 13">
+        <img src="foto14.png" alt="Foto 14">
+        <img src="foto15.png" alt="Foto 15">
+        <img src="foto16.png" alt="Foto 16">
+        <img src="foto17.png" alt="Foto 17">
+        <img src="foto18.png" alt="Foto 18">
+        <img src="foto19.png" alt="Foto 19">
+        <img src="foto20.png" alt="Foto 20">
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        Desarrollado con ♥ por tu familia. Te amamos pá.
+    </footer>
+
+    <!-- Script para el slider con flechas -->
+    <script>
+        let slideIndex = 0;
+        const slides = document.querySelector('.slides');
+        const slideImages = document.querySelectorAll('.slides img');
+        const totalSlides = slideImages.length;
+        const slideWidth = document.querySelector('.slider').offsetWidth;
+
+        function moveSlide(n) {
+            slideIndex += n;
+            if (slideIndex >= totalSlides) slideIndex = 0;
+            if (slideIndex < 0) slideIndex = totalSlides - 1;
+            slides.style.transform = `translateX(-${slideIndex * slideWidth}px)`;
+        }
+
+        // Script para la cuenta regresiva
+        const targetDate = new Date("October 19, 2024 00:00:00").getTime();
+        const countdown = setInterval(function() {
+            const now = new Date().getTime();
+            const timeLeft = targetDate - now;
+
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            document.getElementById("countdown").innerHTML = 
+                days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+
+            if (timeLeft < 0) {
+                clearInterval(countdown);
+                document.getElementById("countdown").innerHTML = "¡La cuenta ha terminado!";
+            }
+        }, 1000);
+    </script>
+
+</body>
+</html>
